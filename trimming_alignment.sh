@@ -39,5 +39,6 @@ do
   read2="${input_dir}/${base}_2_val_2.fq.gz"
   bowtie2 -x ${bowtie_index} -1 ${read1}  -2 ${read2} -p 2 --phred64 -S "${output_dir}/${base}.sam" 2>"${output_dir}/log_file_align_${base}.txt"
   samtools view -buS "${output_dir}/${base}.sam" | samtools sort -T tmp.bam > ${base}.sorted.bam
+  bamCoverage -b "${output_dir}/${base}.sorted.bam" -o "${output_dir}/${base}coverage.bg" --outFileFormat bedgraph
 done
 
